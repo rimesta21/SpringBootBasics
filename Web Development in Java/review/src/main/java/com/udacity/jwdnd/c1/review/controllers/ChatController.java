@@ -30,10 +30,7 @@ public class ChatController {
 
     @PostMapping
     public String newMessage(ChatForm chatForm, Model model) {
-        if(ms.checkForBanned(chatForm.getMessageText())) {
-            chatForm.setMode("Say");
-            chatForm.setMessageText("This message has been censored as it contained a banned word.");
-        }
+        chatForm.setMessageText(ms.replaceBannedWords(chatForm.getMessageText()));
         if(chatForm.getMode().equals("Shout")) {
             chatForm.setMessageText(ms.upperCase(chatForm.getMessageText()));
         } else if(chatForm.getMode().equals("Whisper")) {
