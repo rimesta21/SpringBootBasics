@@ -30,15 +30,19 @@ public class ChatController {
 
     @PostMapping
     public String newMessage(ChatForm chatForm, Model model) {
-        ChatMessage cm = new ChatMessage();
-        cm.setUsername(chatForm.getUserName());
+        if(ms.checkForBanned(chatForm.getMessageText())) {
+            chatForm.setMode("Say");
+            chatForm.setMessageText("This message has been censored as it contained a banned word.");
+        }
         if(chatForm.getMode().equals("Shout")) {
             chatForm.setMessageText(ms.upperCase(chatForm.getMessageText()));
         } else if(chatForm.getMode().equals("Whisper")) {
             chatForm.setMessageText(ms.lowerCase(chatForm.getMessageText()));
         }
-        cm.setMessage(chatForm.getMessageText());
+        //Pretty sure we can eliminate ChatMessage by just adding the ChatForm straight into the message list
+        ChatMessage cm = new ChatMessage();
         cm.setUsername(chatForm.getUserName());
+        cm.setMessage(chatForm.getMessageText());
         ms.addMessage(cm);
         model.addAttribute("messages", ms.getMessages());
         return "chat";
