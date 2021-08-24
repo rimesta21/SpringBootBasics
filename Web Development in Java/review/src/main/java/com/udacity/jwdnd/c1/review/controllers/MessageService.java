@@ -15,7 +15,7 @@ public class MessageService {
     @PostConstruct
     public void postConstruct() {
         this.messages = new ArrayList<ChatMessage>();
-        this.bannedWords = new String[]{"poop", "fuck", "lameo"};
+        this.bannedWords = new String[]{"poop", "fuck", "lameo", "bitch", "shit"};
     }
 
     public String upperCase(String message) { return message.toUpperCase(); }
