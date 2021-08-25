@@ -1,5 +1,7 @@
-package com.udacity.jwdnd.c1.review.controllers;
+package com.udacity.jwdnd.c1.review.service;
 
+import com.udacity.jwdnd.c1.review.model.ChatForm;
+import com.udacity.jwdnd.c1.review.model.ChatMessage;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -14,7 +16,7 @@ public class MessageService {
 
     @PostConstruct
     public void postConstruct() {
-        this.messages = new ArrayList<ChatMessage>();
+        this.messages = new ArrayList<>();
         this.bannedWords = new String[]{"poop", "fuck", "lameo", "bitch", "shit"};
     }
 
@@ -24,13 +26,24 @@ public class MessageService {
         return message.toLowerCase();
     }
 
-    public void addMessage(ChatMessage message) {
-        this.messages.add(message);
-   }
-
     public List<ChatMessage> getMessages(){
         return this.messages;
    }
+
+   public void addChatMessage(ChatForm chatForm) {
+       chatForm.setMessageText(this.replaceBannedWords(chatForm.getMessageText()));
+       if(chatForm.getMode().equals("Shout")) {
+           chatForm.setMessageText(this.upperCase(chatForm.getMessageText()));
+       } else if(chatForm.getMode().equals("Whisper")) {
+           chatForm.setMessageText(this.lowerCase(chatForm.getMessageText()));
+       }
+       //Pretty sure we can eliminate ChatMessage by just adding the ChatForm straight into the message list
+       ChatMessage cm = new ChatMessage();
+       cm.setUsername(chatForm.getUserName());
+       cm.setMessage(chatForm.getMessageText());
+       this.messages.add(cm);
+   }
+
 
     public String replaceBannedWords(String message) {
         for (String bannedWord : this.bannedWords) {
@@ -51,7 +64,7 @@ public class MessageService {
     }
 
     private List<Integer> getIndices(String message, String word) {
-        List<Integer> indices = new ArrayList<Integer>();
+        List<Integer> indices = new ArrayList<>();
         int i = 0;
         message = this.lowerCase(message);
         do {

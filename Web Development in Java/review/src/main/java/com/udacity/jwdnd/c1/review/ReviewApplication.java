@@ -1,9 +1,7 @@
 package com.udacity.jwdnd.c1.review;
 
-import com.udacity.jwdnd.c1.review.controllers.MessageService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 

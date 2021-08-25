@@ -1,4 +1,4 @@
-package com.udacity.jwdnd.c1.review.controllers;
+package com.udacity.jwdnd.c1.review.model;
 
 public class ChatMessage {
     private String username;
