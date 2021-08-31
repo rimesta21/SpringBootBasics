@@ -1,7 +1,9 @@
 package com.udacity.jwdnd.c1.review.service;
 
+import com.udacity.jwdnd.c1.review.mappers.MessageMapper;
 import com.udacity.jwdnd.c1.review.model.ChatForm;
 import com.udacity.jwdnd.c1.review.model.ChatMessage;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -11,12 +13,11 @@ import java.util.List;
 
 @Component
 public class MessageService {
-    private List<ChatMessage> messages;
+    private MessageMapper mm;
     private String[] bannedWords;
 
-    @PostConstruct
-    public void postConstruct() {
-        this.messages = new ArrayList<>();
+    public MessageService(MessageMapper mm) {
+        this.mm = mm;
         this.bannedWords = new String[]{"poop", "fuck", "lameo", "bitch", "shit"};
     }
 
@@ -27,7 +28,7 @@ public class MessageService {
     }
 
     public List<ChatMessage> getMessages(){
-        return this.messages;
+        return this.mm.getMessages();
    }
 
    public void addChatMessage(ChatForm chatForm) {
@@ -41,7 +42,7 @@ public class MessageService {
        ChatMessage cm = new ChatMessage();
        cm.setUsername(chatForm.getUserName());
        cm.setMessage(chatForm.getMessageText());
-       this.messages.add(cm);
+       this.mm.insert(cm);
    }
 
 
