@@ -13,8 +13,8 @@ import java.util.List;
 
 @Component
 public class MessageService {
-    private MessageMapper mm;
-    private String[] bannedWords;
+    private final MessageMapper mm;
+    private final String[] bannedWords;
 
     public MessageService(MessageMapper mm) {
         this.mm = mm;

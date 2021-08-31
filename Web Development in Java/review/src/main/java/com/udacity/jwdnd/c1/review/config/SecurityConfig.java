@@ -18,7 +18,7 @@ import java.util.ArrayList;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private AuthenticationService authenticationService;
+    private final AuthenticationService authenticationService;
 
     public SecurityConfig(AuthenticationService authenticationService) {
         this.authenticationService = authenticationService;
@@ -37,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/signup", "/css/**", "/js/**").permitAll()
                 .anyRequest().authenticated();
-        //allow everyone to the login page
+        //allow everyone to the login page and when the user logs out it returns to the login page
         http.formLogin()
                 .loginPage("/login")
                 .permitAll().and().logout().logoutSuccessUrl("/login");
