@@ -17,8 +17,8 @@
             <!-- fs stands for font size-->
             <small class="text-muted fs-4">Get to know everyone.</small>
         </h1>
-        <form action ='#' th:action="@{/logout}" method="POST">
-            <input type="submit" class="btn btn-secondary " value="Sign Out" style = "float:right">
+        <form action ='#'  th:action="@{/logout}" method="POST">
+            <input type="submit" id = 'logout' class="btn btn-secondary " value="Sign Out" style = "float:right">
         </form>
     </div>
 
@@ -41,13 +41,13 @@
                 <option value = "Shout">Shout</option>
                 <option value = "Whisper">Whisper</option>
             </select>
-            <input class = "col-sm" type="submit">
+            <input id = "submit-button" class = "col-sm" type="submit">
         </form>
     </div>
 </div>
 <div class="container-fluid py-3 fs-3 lh-sm" style="border:3px solid #2a7254">
     <div class = "row">
-    <h2 style = "color:#0028d2;" th:each="msg : ${messages}" th:text="${msg.username + ': ' + msg.message}">Hello!</h2>
+    <h2 style = "color:#0028d2;" id = "messages" th:each="msg : ${messages}" th:text="${msg.username + ': ' + msg.message}">Hello!</h2>
     </div>
 </div>
 
